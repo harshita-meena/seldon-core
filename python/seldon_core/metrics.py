@@ -200,7 +200,9 @@ class SeldonMetrics:
 
     @staticmethod
     def _generate_tags_key(tags):
-        return "_".join(["-".join(i) for i in tags.items()])
+        # sort tags to ensure unique push key
+        sorted_tags = dict(sorted(tags.items(), key=lambda item: item[1])
+        return "_".join(["-".join(i) for i in sorted_tags.items()])
 
     @staticmethod
     def _update_hist(x, vals, sumv):
